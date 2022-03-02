@@ -10,11 +10,11 @@
 </head>
 
 <body>
-    <div class="container" >
+    <div class="container">
         <h1>BCB</h1>
         <h2>BlockChill Booking</h2>
 
-        <div class="slideshow-container" style="margin-top: -50px" >
+        <div class="slideshow-container" style="margin-top: -50px">
             <label align="center">Preview</label>
             <div class="mySlides fade">
                 <div class="numbertext">1 / 5</div>
@@ -98,12 +98,18 @@
             <button id="btnRegistration5">
                 reserve ( 0.5 ETH )
             </button>
-            <h2 id="result5" style="width: 50%;background-color: rgb(201, 230, 222)"></h2>
+
+            <label class="col-lg-2 control-label" ">
+                Super Luxurious Tent Villa</label>
+            <img src=" image/tent.jpg" />
+            <button id="btnRegistration6">
+                reserve ( 10 ETH )
+            </button>
         </div>
 
 
         <label class="col-lg-2 control-label">
-            Check The Reserved Room (villa1-5)</label>
+            Check The Reserved Room (villa1-6)</label>
         <input id="document2" type="text">
         <button id="btnCheck">Check</button>
 
@@ -138,6 +144,7 @@
             }
             slides[slideIndex - 1].style.display = "block";
             dots[slideIndex - 1].className += " active";
+
         }
     </script>
 
@@ -267,7 +274,7 @@
         ];
 
         async function loadContract() {
-            return await new window.web3.eth.Contract(abi, '0xA20737C675bF15E02E954ba2e9FBA79dF128b3c3');
+            return await new window.web3.eth.Contract(abi, '0xADC78581B5f0324D18242E5bF774A1615222Df50');
         }
 
         async function load() {
@@ -412,15 +419,41 @@
             });
         });
 
+        //villa6
+        $("#btnRegistration6").click(function () {
+            console.log(currentAccount);
+            window.contract.methods.registration("villa5")
+                .send({ from: currentAccount, value: 10000000000000000000 }, function (error, result) {
+                    $("#result").html(result);
+                });
+
+
+            window.contract.once('NameAdded', {}, function (error, event) {
+                if (!error) {
+                    console.log(event);
+                    $("#result").html("Name: " + event.returnValues.text + "<br/>=> Hased as:"
+                        + event.returnValues.hash);
+                }
+            });
+
+            window.contract.once('RegistrationError', {}, function (error, event) {
+                if (!error) {
+                    console.log(event);
+                    $("#result").html("Error: " + event.returnValues.text + "<br/>Reason:"
+                        + event.returnValues.reason);
+                }
+            });
+        });
+
         $("#btnCheck").click(function () {
             window.contract.methods.checkName($("#document2").val()).call(function (error, result) {
                 if (!error) {
-                    if(result.toString() == "true"){
+                    if (result.toString() == "true") {
                         $("#result").html("Reserve");
-                    }else{
+                    } else {
                         $("#result").html("Not Reserve");
                     }
-                    
+
                 } else
                     console.error(error);
             });
