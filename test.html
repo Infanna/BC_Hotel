@@ -9,39 +9,13 @@
     <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
 </head>
 
-<body style="
-        background-color:rgb(201, 230, 222);
-        background-repeat: no-repeat;   
-        background-attachment: fixed;
-        background-size: cover;
-        
-    ">
+<body>
     <div class="container">
-        <h1>BCV</h1>
-        <h2>BlockChill Villa</h2>
-        <div align="center">
-            <label class="col-lg-2 control-label">
-                Room1</label>
-            <img src="image/h1.jpg" width="500" height="340" />
-            <button id="btnRegistration1" style="
-                    background-color:rgb(100, 149, 237);
-                    color: rgb(255, 255, 255);
-                    ">
-                reserve
-            </button>
-
-
-            <label class="col-lg-2 control-label">
-                Room2</label>
-            <img src="image/h2.jpg" width="500" height="340" />
-            <button id="btnRegistration2" style="
-                    background-color:rgb(100, 149, 237);
-                    color: rgb(255, 255, 255);
-                    ">
-                reserve
-            </button>
-        </div>
-
+        <h1>Student Name in Blockchain Class</h1>
+        <label class="col-lg-2 control-label">
+            Name Registration</label>
+        <input id="document1" type="text">
+        <button id="btnRegistration">Registration</button>
 
         <label class="col-lg-2 control-label">
             Check Student Name</label>
@@ -176,7 +150,7 @@
         ];
 
         async function loadContract() {
-            return await new window.web3.eth.Contract(abi, '0xFC750E1808bD53899b19E3623Ca4D7bfB4c37849');
+            return await new window.web3.eth.Contract(abi, '0x0c8FA167d873b03498214c726C01CfcC7978f78e');
         }
 
         async function load() {
@@ -191,7 +165,7 @@
             console.log(status);
         }
 
-        $("#btnRegistration1").click(function () {
+        $("#btnRegistration").click(function () {
             console.log(currentAccount);
             window.contract.methods.registration($("#document1").val())
                 .send({ from: currentAccount, value: 1000000000000000 }, function (error, result) {
@@ -202,49 +176,19 @@
             window.contract.once('NameAdded', {}, function (error, event) {
                 if (!error) {
                     console.log(event);
-                    $("#result").html("Name: " + event.returnValue.text+"<br/>=> Hased as:"
-                        + event.returnValue.hash);
+                    $("#result").html("Name: " + event.returnValues.text + "<br/>=> Hased as:"
+                        + event.returnValues.hash);
                 }
             });
 
             window.contract.once('RegistrationError', {}, function (error, event) {
                 if (!error) {
                     console.log(event);
-                    $("#result").html("Error: "+event.returnValue.text+"<br/>Reason:"
-                        + event.returnValue.reason);
+                    $("#result").html("Error: " + event.returnValues.text + "<br/>Reason:"
+                        + event.returnValues.reason);
                 }
             });
         });
-
-        $("#btnRegistration2").click(function () {
-            console.log(currentAccount);
-            window.contract.methods.registration("h2")
-                .send({ from: currentAccount, value: 2000000000000000 }, function (error, result) {
-                    $("#result").html(result);
-                });
-
-
-            window.contract.once('NameAdded', {}, function (error, event) {
-                if (!error) {
-                    console.log(event);
-                    $("#result").html("Name: " + "event.returnValue.text" + "<br/>=> Hased as:"
-                        + "event.returnValue.hash");
-                }
-            });
-
-            window.contract.once('RegistrationError', {}, function (error, event) {
-                if (!error) {
-                    console.log(event);
-                    $("#result").html("Error: " + "event.returnValue.text" + "<br/>Reason:"
-                        + "event.returnValue.reason");
-                }
-            });
-        });
-
-
-
-        //("Name: "+ event.returnValue.text+"<br/>Reason: "
-        //+event.returnValue.hash);
         $("#btnCheck").click(function () {
             window.contract.methods.checkName($("#document2").val()).call(function (error, result) {
                 if (!error) {

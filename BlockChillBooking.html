@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Student Name in Blockchain Class</title>
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <!-- <script src="./node_modules/web3/dist/web3.min.js">
+    </script> -->
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+</head>
+
+<body>
+    <div class="container" >
+        <h1>BCB</h1>
+        <h2>BlockChill Booking</h2>
+
+        <div class="slideshow-container" style="margin-top: -50px" >
+            <label align="center">Preview</label>
+            <div class="mySlides fade">
+                <div class="numbertext">1 / 5</div>
+                <img src="image/preview1.jpg">
+                <div class="text" style="color: #34495E">Relax</div>
+            </div>
+
+            <div class="mySlides fade">
+                <div class="numbertext">2 / 5</div>
+                <img src="image/preview2.jpg">
+                <div class="text" style="color: #34495E">Beach</div>
+            </div>
+
+            <div class="mySlides fade">
+                <div class="numbertext">3 / 5</div>
+                <img src="image/preview3.jpg">
+                <div class="text">Restaurant</div>
+            </div>
+
+            <div class="mySlides fade">
+                <div class="numbertext">4 / 5</div>
+                <img src="image/preview4.jpg">
+                <div class="text">Pool</div>
+            </div>
+
+            <div class="mySlides fade">
+                <div class="numbertext">5 / 5</div>
+                <img src="image/preview5.jpg">
+                <div class="text">Activity</div>
+            </div>
+
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+        </div>
+        <br>
+
+        <div style="text-align:center">
+            <span class="dot" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+            <span class="dot" onclick="currentSlide(3)"></span>
+            <span class="dot" onclick="currentSlide(4)"></span>
+            <span class="dot" onclick="currentSlide(5)"></span>
+        </div>
+
+
+        <div align="center" style="margin-top: 200px;">
+
+            <label class="col-lg-2 control-label">
+                Beach Bungalow Villa</label>
+            <img src="image/villa1.jpg" />
+            <button id="btnRegistration1">
+                reserve ( 0.1 ETH )
+            </button>
+            <h2 id="result1" style="width: 50%;background-color: rgb(201, 230, 222)"></h2>
+
+            <label class="col-lg-2 control-label" ">
+                    Wings Villla </label>
+                <img src=" image/villa2.jpg" />
+            <button id="btnRegistration2">
+                reserve ( 0.2 ETH )
+            </button>
+
+            <label class="col-lg-2 control-label" ">
+                    Beach Front Villla</label>
+                <img src=" image/villa3.jpg" />
+            <button id="btnRegistration3">
+                reserve ( 0.3 ETH )
+            </button>
+
+            <label class="col-lg-2 control-label" ">
+                    Modern Villa</label>
+                <img src=" image/villa4.jpg" />
+            <button id="btnRegistration4">
+                reserve ( 0.3 ETH )
+            </button>
+
+            <label class="col-lg-2 control-label" ">
+                    White House Villa</label>
+                <img src=" image/villa5.jpg" />
+            <button id="btnRegistration5">
+                reserve ( 0.5 ETH )
+            </button>
+            <h2 id="result5" style="width: 50%;background-color: rgb(201, 230, 222)"></h2>
+        </div>
+
+
+        <label class="col-lg-2 control-label">
+            Check The Reserved Room (villa1-5)</label>
+        <input id="document2" type="text">
+        <button id="btnCheck">Check</button>
+
+        <label class="col-lg-2 control-label" style="margin-top: 0px;">Status</label>
+        <h2 id="result"></h2>
+        Status: <span id="status">Loading...</span>
+    </div>
+
+    <script>
+        var slideIndex = 1;
+        showSlides(slideIndex);
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            var i;
+            var slides = document.getElementsByClassName("mySlides");
+            var dots = document.getElementsByClassName("dot");
+            if (n > slides.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = slides.length }
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " active";
+        }
+    </script>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js">
+    </script>
+    <script>
+
+        async function loadWeb3() {
+            if (window.ethereum) {
+                window.web3 = new Web3(window.ethereum);
+                window.ethereum.enable();
+            }
+        }
+
+        let currentAccount = null;
+        window.ethereum
+            .request({ method: 'eth_accounts' })
+            .then(handleAccountsChanged)
+            .catch((err) => {
+                // Some unexpected error.
+                // For backwards compatibility reasons, if no accounts are available,
+                // eth_accounts will return an empty array.
+                console.error(err);
+            });
+
+        // Note that this event is emitted on page load.
+        // If the array of accounts is non-empty, you're already
+        // connected.
+        window.ethereum.on('accountsChanged', handleAccountsChanged);
+
+        // For now, 'eth_accounts' will continue to always return an array
+        function handleAccountsChanged(accounts) {
+            if (accounts.length === 0) {
+                // MetaMask is locked or the user has not connected any accounts
+                console.log('Please connect to MetaMask.');
+            } else if (accounts[0] !== currentAccount) {
+                currentAccount = accounts[0];
+                // Do any other work!
+            }
+        }
+
+        let abi = [
+            {
+                "anonymous": false,
+                "inputs": [
+                    {
+                        "indexed": false,
+                        "internalType": "address",
+                        "name": "from",
+                        "type": "address"
+                    },
+                    {
+                        "indexed": false,
+                        "internalType": "string",
+                        "name": "text",
+                        "type": "string"
+                    },
+                    {
+                        "indexed": false,
+                        "internalType": "bytes32",
+                        "name": "hash",
+                        "type": "bytes32"
+                    }
+                ],
+                "name": "NameAdded",
+                "type": "event"
+            },
+            {
+                "anonymous": false,
+                "inputs": [
+                    {
+                        "indexed": false,
+                        "internalType": "address",
+                        "name": "from",
+                        "type": "address"
+                    },
+                    {
+                        "indexed": false,
+                        "internalType": "string",
+                        "name": "text",
+                        "type": "string"
+                    },
+                    {
+                        "indexed": false,
+                        "internalType": "string",
+                        "name": "reason",
+                        "type": "string"
+                    }
+                ],
+                "name": "RegistrationError",
+                "type": "event"
+            },
+            {
+                "inputs": [
+                    {
+                        "internalType": "string",
+                        "name": "name",
+                        "type": "string"
+                    }
+                ],
+                "name": "checkName",
+                "outputs": [
+                    {
+                        "internalType": "bool",
+                        "name": "",
+                        "type": "bool"
+                    }
+                ],
+                "stateMutability": "view",
+                "type": "function"
+            },
+            {
+                "inputs": [
+                    {
+                        "internalType": "string",
+                        "name": "name",
+                        "type": "string"
+                    }
+                ],
+                "name": "registration",
+                "outputs": [],
+                "stateMutability": "payable",
+                "type": "function"
+            }
+        ];
+
+        async function loadContract() {
+            return await new window.web3.eth.Contract(abi, '0xA20737C675bF15E02E954ba2e9FBA79dF128b3c3');
+        }
+
+        async function load() {
+            await loadWeb3();
+            window.contract = await loadContract();
+            updateStatus('Ready!');
+        }
+
+        function updateStatus(status) {
+            const statusEl = document.getElementById('status');
+            statusEl.innerHTML = status;
+            console.log(status);
+        }
+
+        //villa1
+        $("#btnRegistration1").click(function () {
+            console.log(currentAccount);
+            window.contract.methods.registration("villa1")
+                .send({ from: currentAccount, value: 100000000000000000 }, function (error, result) {
+                    $("#result").html(result);
+                });
+
+
+            window.contract.once('NameAdded', {}, function (error, event) {
+                if (!error) {
+                    console.log(event);
+                    $("#result").html("Name: " + event.returnValues.text + "<br/>=> Hased as:"
+                        + event.returnValues.hash);
+                }
+            });
+
+            window.contract.once('RegistrationError', {}, function (error, event) {
+                if (!error) {
+                    console.log(event);
+                    $("#result").html("Error: " + event.returnValues.text + "<br/>Reason:"
+                        + event.returnValues.reason);
+                }
+            });
+        });
+
+        //villa2
+        $("#btnRegistration2").click(function () {
+            console.log(currentAccount);
+            window.contract.methods.registration("villa2")
+                .send({ from: currentAccount, value: 200000000000000000 }, function (error, result) {
+                    $("#result").html(result);
+                });
+
+
+            window.contract.once('NameAdded', {}, function (error, event) {
+                if (!error) {
+                    console.log(event);
+                    $("#result").html("Name: " + event.returnValues.text + "<br/>=> Hased as:"
+                        + event.returnValues.hash);
+                }
+            });
+
+            window.contract.once('RegistrationError', {}, function (error, event) {
+                if (!error) {
+                    console.log(event);
+                    $("#result").html("Error: " + event.returnValues.text + "<br/>Reason:"
+                        + event.returnValues.reason);
+                }
+            });
+        });
+
+        //villa3
+        $("#btnRegistration3").click(function () {
+            console.log(currentAccount);
+            window.contract.methods.registration("villa3")
+                .send({ from: currentAccount, value: 300000000000000000 }, function (error, result) {
+                    $("#result").html(result);
+                });
+
+
+            window.contract.once('NameAdded', {}, function (error, event) {
+                if (!error) {
+                    console.log(event);
+                    $("#result").html("Name: " + event.returnValues.text + "<br/>=> Hased as:"
+                        + event.returnValues.hash);
+                }
+            });
+
+            window.contract.once('RegistrationError', {}, function (error, event) {
+                if (!error) {
+                    console.log(event);
+                    $("#result").html("Error: " + event.returnValues.text + "<br/>Reason:"
+                        + event.returnValues.reason);
+                }
+            });
+        });
+
+        //villa4
+        $("#btnRegistration4").click(function () {
+            console.log(currentAccount);
+            window.contract.methods.registration("villa4")
+                .send({ from: currentAccount, value: 300000000000000000 }, function (error, result) {
+                    $("#result").html(result);
+                });
+
+
+            window.contract.once('NameAdded', {}, function (error, event) {
+                if (!error) {
+                    console.log(event);
+                    $("#result").html("Name: " + event.returnValues.text + "<br/>=> Hased as:"
+                        + event.returnValues.hash);
+                }
+            });
+
+            window.contract.once('RegistrationError', {}, function (error, event) {
+                if (!error) {
+                    console.log(event);
+                    $("#result").html("Error: " + event.returnValues.text + "<br/>Reason:"
+                        + event.returnValues.reason);
+                }
+            });
+        });
+
+        //villa5
+        $("#btnRegistration5").click(function () {
+            console.log(currentAccount);
+            window.contract.methods.registration("villa5")
+                .send({ from: currentAccount, value: 500000000000000000 }, function (error, result) {
+                    $("#result").html(result);
+                });
+
+
+            window.contract.once('NameAdded', {}, function (error, event) {
+                if (!error) {
+                    console.log(event);
+                    $("#result").html("Name: " + event.returnValues.text + "<br/>=> Hased as:"
+                        + event.returnValues.hash);
+                }
+            });
+
+            window.contract.once('RegistrationError', {}, function (error, event) {
+                if (!error) {
+                    console.log(event);
+                    $("#result").html("Error: " + event.returnValues.text + "<br/>Reason:"
+                        + event.returnValues.reason);
+                }
+            });
+        });
+
+        $("#btnCheck").click(function () {
+            window.contract.methods.checkName($("#document2").val()).call(function (error, result) {
+                if (!error) {
+                    if(result.toString() == "true"){
+                        $("#result").html("Reserve");
+                    }else{
+                        $("#result").html("Not Reserve");
+                    }
+                    
+                } else
+                    console.error(error);
+            });
+        });
+
+        load();
+    </script>
+</body>
+
+</html>
