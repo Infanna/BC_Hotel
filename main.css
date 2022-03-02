@@ -37,13 +37,22 @@ button {
     margin: 1em 0;
 }
 
+#table {
+  padding:1em;
+  background-color:#fff;
+  margin: 1em 0;
+}
+
 img {
     width: 1080px; 
     height: 720px;
 
 }
 
-
+table, th, td {
+  border:1px solid black;
+  font-size: 30px;
+}
 
 
 * {box-sizing:border-box}

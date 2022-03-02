@@ -14,6 +14,7 @@
         <h1>BCB</h1>
         <h2>BlockChill Booking</h2>
 
+
         <div class="slideshow-container" style="margin-top: -50px">
             <label align="center">Preview</label>
             <div class="mySlides fade">
@@ -116,9 +117,59 @@
         <label class="col-lg-2 control-label" style="margin-top: 0px;">Status</label>
         <h2 id="result"></h2>
         Status: <span id="status">Loading...</span>
+
+
+
+        <label class="col-lg-2 control-label" style="margin-top: 0px;">Table</label>
+
+        <body>
+            <div id="output_div"></div>
+
+            <script>
+
+                var time = ["Time"];
+                var rooms = ["Room"];
+                var address = ["Address"];
+                var outputHTML = "";
+                outputHTML += "<table>";
+
+                for (var i = 0; i < rooms.length; i++) {
+                    outputHTML += "<tr>";
+                    outputHTML += "<td>" + time[i] + "</td>" + "<td>" + rooms[i] + "</td>" + "<td>" + address[i] + "</td>";
+                    outputHTML += "</tr>";
+                }
+                outputHTML += "<table>";
+                document.getElementById("output_div").innerHTML = outputHTML;
+
+            </script>
+        </body>
+
+
+
+
+
+
+
     </div>
 
     <script>
+
+        function tablex() {
+
+
+            var outputHTML = "";
+            outputHTML += "<table>";
+
+            for (var i = 0; i < rooms.length; i++) {
+                outputHTML += "<tr>";
+                outputHTML += "<td>" + time[i] + "</td>" + "<td>" + rooms[i] + "</td>" + "<td>" + address[i] + "</td>";
+                outputHTML += "</tr>";
+            }
+            outputHTML += "<table>";
+            document.getElementById("output_div").innerHTML = outputHTML;
+
+        }
+
         var slideIndex = 1;
         showSlides(slideIndex);
 
@@ -274,7 +325,7 @@
         ];
 
         async function loadContract() {
-            return await new window.web3.eth.Contract(abi, '0xADC78581B5f0324D18242E5bF774A1615222Df50');
+            return await new window.web3.eth.Contract(abi, '0xE8350D25665ff16bEc3F4789f0D29dcf87B500c3');
         }
 
         async function load() {
@@ -289,9 +340,26 @@
             console.log(status);
         }
 
+        function Addtable(room) {
+
+            var dtH = new Date().getHours();
+            var dtM = new Date().getMinutes();
+            var dT = dtH + ":" + dtM
+            time.push(dT)
+            rooms.push(room)
+            address.push(currentAccount)
+
+            console.log("Time            Room                               Address")
+            for(var i=1 ;i<time.length;i++){
+                console.log(time[i], "    ",  rooms[i], "   ", address[i])
+            }
+
+        }
+
         //villa1
         $("#btnRegistration1").click(function () {
             console.log(currentAccount);
+            Addtable("Beach Bungalow Villa");
             window.contract.methods.registration("villa1")
                 .send({ from: currentAccount, value: 10000000000000000 }, function (error, result) {
                     $("#result").html(result);
@@ -318,6 +386,7 @@
         //villa2
         $("#btnRegistration2").click(function () {
             console.log(currentAccount);
+            Addtable("Wings Villla");
             window.contract.methods.registration("villa2")
                 .send({ from: currentAccount, value: 20000000000000000 }, function (error, result) {
                     $("#result").html(result);
@@ -344,6 +413,7 @@
         //villa3
         $("#btnRegistration3").click(function () {
             console.log(currentAccount);
+            Addtable("Beach Front Villla");
             window.contract.methods.registration("villa3")
                 .send({ from: currentAccount, value: 30000000000000000 }, function (error, result) {
                     $("#result").html(result);
@@ -370,6 +440,7 @@
         //villa4
         $("#btnRegistration4").click(function () {
             console.log(currentAccount);
+            Addtable("Modern Villa");
             window.contract.methods.registration("villa4")
                 .send({ from: currentAccount, value: 30000000000000000 }, function (error, result) {
                     $("#result").html(result);
@@ -396,8 +467,11 @@
         //villa5
         $("#btnRegistration5").click(function () {
             console.log(currentAccount);
+            Addtable("White House Villa");
+
+            console.log(time[0]);
             window.contract.methods.registration("villa5")
-                .send({ from: currentAccount, value: 500000000000000 }, function (error, result) {
+                .send({ from: currentAccount, value: 50000000000000000 }, function (error, result) {
                     $("#result").html(result);
                 });
 
@@ -422,6 +496,7 @@
         //villa6
         $("#btnRegistration6").click(function () {
             console.log(currentAccount);
+            Addtable("Super Luxurious Tent Villa");
             window.contract.methods.registration("villa5")
                 .send({ from: currentAccount, value: 10000000000000000000 }, function (error, result) {
                     $("#result").html(result);
@@ -458,6 +533,7 @@
                     console.error(error);
             });
         });
+
 
         load();
     </script>

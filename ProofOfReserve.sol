@@ -81,7 +81,7 @@ contract ProofOfStudent {
             emit RegistrationError(msg.sender, name, "Incorrect amout of Ether. You should pay 10 ether");
             payable(msg.sender).transfer(msg.value);
             return;
-        }            
+        }
 
     }else{
         emit RegistrationError(msg.sender, name, "Room not found, please contact staff");
@@ -109,4 +109,6 @@ contract ProofOfStudent {
   view returns (bool) {
     return listStudent[hashing(name)];
   }
+
+  
 }
