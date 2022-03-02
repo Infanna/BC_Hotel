@@ -39,9 +39,9 @@ contract ProofOfStudent {
 
 
     if(keccak256(bytes(name)) == keccak256(bytes("villa1"))) {
-        if (msg.value != 0.1 ether) {
+        if (msg.value != 0.01 ether) {
             //---fire the event---
-            emit RegistrationError(msg.sender, name, "Incorrect amout of Ether. You should pay 0.001 ether");
+            emit RegistrationError(msg.sender, name, "Incorrect amout of Ether. You should pay 0.01 ether");
             //---refund back to the sender---
             payable(msg.sender).transfer(msg.value);
             //---exit the function---
@@ -49,32 +49,39 @@ contract ProofOfStudent {
         } 
 
     }else if(keccak256(bytes(name)) == keccak256(bytes("villa2"))){
-        if (msg.value != 0.2 ether) {
-            emit RegistrationError(msg.sender, name, "Incorrect amout of Ether. You should pay 0.002 ether");
+        if (msg.value != 0.02 ether) {
+            emit RegistrationError(msg.sender, name, "Incorrect amout of Ether. You should pay 0.02 ether");
             payable(msg.sender).transfer(msg.value);
             return;
         }     
 
     }else if(keccak256(bytes(name)) == keccak256(bytes("villa3"))){
-        if (msg.value != 0.3 ether) {
-            emit RegistrationError(msg.sender, name, "Incorrect amout of Ether. You should pay 0.003 ether");
+        if (msg.value != 0.03 ether) {
+            emit RegistrationError(msg.sender, name, "Incorrect amout of Ether. You should pay 0.03 ether");
             payable(msg.sender).transfer(msg.value);
             return;
         }     
 
     }else if(keccak256(bytes(name)) == keccak256(bytes("villa4"))){
-        if (msg.value != 0.3 ether) {
-            emit RegistrationError(msg.sender, name, "Incorrect amout of Ether. You should pay 0.003 ether");
+        if (msg.value != 0.03 ether) {
+            emit RegistrationError(msg.sender, name, "Incorrect amout of Ether. You should pay 0.03 ether");
             payable(msg.sender).transfer(msg.value);
             return;
         }     
 
     }else if(keccak256(bytes(name)) == keccak256(bytes("villa5"))){
-        if (msg.value != 0.5 ether) {
-            emit RegistrationError(msg.sender, name, "Incorrect amout of Ether. You should pay 0.005 ether");
+        if (msg.value != 0.05 ether) {
+            emit RegistrationError(msg.sender, name, "Incorrect amout of Ether. You should pay 0.05 ether");
             payable(msg.sender).transfer(msg.value);
             return;
-        }     
+        }
+
+    }else if(keccak256(bytes(name)) == keccak256(bytes("villa6"))){
+        if (msg.value != 10 ether) {
+            emit RegistrationError(msg.sender, name, "Incorrect amout of Ether. You should pay 10 ether");
+            payable(msg.sender).transfer(msg.value);
+            return;
+        }            
 
     }else{
         emit RegistrationError(msg.sender, name, "Room not found, please contact staff");

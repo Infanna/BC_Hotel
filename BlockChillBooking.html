@@ -67,7 +67,7 @@
                 Beach Bungalow Villa</label>
             <img src="image/villa1.jpg" />
             <button id="btnRegistration1">
-                reserve ( 0.1 ETH )
+                reserve ( 0.01 ETH )
             </button>
             <h2 id="result1" style="width: 50%;background-color: rgb(201, 230, 222)"></h2>
 
@@ -75,28 +75,28 @@
                     Wings Villla </label>
                 <img src=" image/villa2.jpg" />
             <button id="btnRegistration2">
-                reserve ( 0.2 ETH )
+                reserve ( 0.02 ETH )
             </button>
 
             <label class="col-lg-2 control-label" ">
                     Beach Front Villla</label>
                 <img src=" image/villa3.jpg" />
             <button id="btnRegistration3">
-                reserve ( 0.3 ETH )
+                reserve ( 0.03 ETH )
             </button>
 
             <label class="col-lg-2 control-label" ">
                     Modern Villa</label>
                 <img src=" image/villa4.jpg" />
             <button id="btnRegistration4">
-                reserve ( 0.3 ETH )
+                reserve ( 0.03 ETH )
             </button>
 
             <label class="col-lg-2 control-label" ">
                     White House Villa</label>
                 <img src=" image/villa5.jpg" />
             <button id="btnRegistration5">
-                reserve ( 0.5 ETH )
+                reserve ( 0.05 ETH )
             </button>
 
             <label class="col-lg-2 control-label" ">
@@ -274,7 +274,7 @@
         ];
 
         async function loadContract() {
-            return await new window.web3.eth.Contract(abi, '0xADC78581B5f0324D18242E5bF774A1615222Df50');
+            return await new window.web3.eth.Contract(abi, '0xADC78581B5f0324D18242E5bF774A1615222Df50git');
         }
 
         async function load() {
@@ -293,7 +293,7 @@
         $("#btnRegistration1").click(function () {
             console.log(currentAccount);
             window.contract.methods.registration("villa1")
-                .send({ from: currentAccount, value: 100000000000000000 }, function (error, result) {
+                .send({ from: currentAccount, value: 10000000000000000 }, function (error, result) {
                     $("#result").html(result);
                 });
 
@@ -319,7 +319,7 @@
         $("#btnRegistration2").click(function () {
             console.log(currentAccount);
             window.contract.methods.registration("villa2")
-                .send({ from: currentAccount, value: 200000000000000000 }, function (error, result) {
+                .send({ from: currentAccount, value: 20000000000000000 }, function (error, result) {
                     $("#result").html(result);
                 });
 
@@ -345,7 +345,7 @@
         $("#btnRegistration3").click(function () {
             console.log(currentAccount);
             window.contract.methods.registration("villa3")
-                .send({ from: currentAccount, value: 300000000000000000 }, function (error, result) {
+                .send({ from: currentAccount, value: 30000000000000000 }, function (error, result) {
                     $("#result").html(result);
                 });
 
@@ -371,7 +371,7 @@
         $("#btnRegistration4").click(function () {
             console.log(currentAccount);
             window.contract.methods.registration("villa4")
-                .send({ from: currentAccount, value: 300000000000000000 }, function (error, result) {
+                .send({ from: currentAccount, value: 30000000000000000 }, function (error, result) {
                     $("#result").html(result);
                 });
 
@@ -397,7 +397,7 @@
         $("#btnRegistration5").click(function () {
             console.log(currentAccount);
             window.contract.methods.registration("villa5")
-                .send({ from: currentAccount, value: 500000000000000000 }, function (error, result) {
+                .send({ from: currentAccount, value: 500000000000000 }, function (error, result) {
                     $("#result").html(result);
                 });
 
