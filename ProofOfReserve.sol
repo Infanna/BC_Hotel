@@ -1,10 +1,17 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.1;
+pragma experimental ABIEncoderV2;
 
 contract ProofOfReserve {  
 
   mapping (bytes32 => bool) private listReserve;
-  
+
+    struct Reserved{
+        string times;
+        string rooms;
+        string owners;
+    }
+    Reserved[] reserved;
   //---events---
   event NameAdded(
     address from,   
@@ -28,7 +35,8 @@ contract ProofOfReserve {
   
   // record a student name
   function registration(string memory name ,string memory owner ,string memory time) public payable {
-    
+
+
     //---check if string was previously stored---
     if (listReserve[hashing(name)]) {
         //---fire the event---
@@ -93,8 +101,8 @@ contract ProofOfReserve {
 
     recordProof(hashing(name));
 
-
     //---fire the event---
+    reserved.push(Reserved(time,name,owner));
 
     emit NameAdded(msg.sender, name, hashing(name), time, owner);
     payable(msg.sender).transfer(msg.value);
@@ -111,6 +119,10 @@ contract ProofOfReserve {
   function checkName(string memory name) public 
   view returns (bool) {
     return listReserve[hashing(name)];
+  }
+
+  function getReserved() public view returns(Reserved[] memory){
+    return reserved;
   }
 
 
