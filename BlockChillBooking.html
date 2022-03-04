@@ -200,8 +200,6 @@
             }
         }
 
-
-
         let abi = [
             {
                 "anonymous": false,
@@ -341,7 +339,7 @@
 
         async function loadContract() {
 
-            return await new window.web3.eth.Contract(abi, '0x495841A9bA0ccefA51784C9a6b85b81373cDcBba');
+            return await new window.web3.eth.Contract(abi, '0xcF4020eC417697b56b850A4C3547feA6c25c2187');
 
         }
 
@@ -358,10 +356,12 @@
         }
 
         function timenow() {
-            var dtH = new Date().getHours();
-            var dtM = new Date().getMinutes();
-            var dT = dtH + ":" + dtM
-            return dT;
+            // var dtH = new Date().getHours();
+            // var dtM = new Date().getMinutes();
+            // var dT = dtH + ":" + dtM
+            var s = new Date().toLocaleTimeString("en-US")
+            console.log(s)
+            return s;
         }
 
         function listtable() {
@@ -400,7 +400,7 @@
                     $("#result").html("Reserve Number: " + event.returnValues.hash + "<br/>Owner Address: " + event.returnValues.from
                         + "<br/>Room: " + event.returnValues.text + "<br/>Time: " + event.returnValues.time);
                 }
-                
+                location.reload();
             });
 
             window.contract.once('RegistrationError', {}, function (error, event) {
