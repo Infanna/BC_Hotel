@@ -149,6 +149,7 @@
         </div>
 
 
+
         <label class="col-lg-2 control-label">
             Check The Reserved Room</label>
         <input id="document2" type="text">
@@ -157,8 +158,6 @@
         <label class="col-lg-2 control-label" style="margin-top: 0px;">Status</label>
         <h2 id="result"></h2>
         Status: <span id="status">Loading...</span>
-
-
 
     </div>
 
@@ -196,9 +195,12 @@
                 console.log('Please connect to MetaMask.');
             } else if (accounts[0] !== currentAccount) {
                 currentAccount = accounts[0];
+                listtable();
                 // Do any other work!
             }
         }
+
+
 
         let abi = [
             {
@@ -283,6 +285,36 @@
                 "type": "function"
             },
             {
+                "inputs": [],
+                "name": "getReserved",
+                "outputs": [
+                    {
+                        "components": [
+                            {
+                                "internalType": "string",
+                                "name": "times",
+                                "type": "string"
+                            },
+                            {
+                                "internalType": "string",
+                                "name": "rooms",
+                                "type": "string"
+                            },
+                            {
+                                "internalType": "string",
+                                "name": "owners",
+                                "type": "string"
+                            }
+                        ],
+                        "internalType": "struct ProofOfReserve.Reserved[]",
+                        "name": "",
+                        "type": "tuple[]"
+                    }
+                ],
+                "stateMutability": "view",
+                "type": "function"
+            },
+            {
                 "inputs": [
                     {
                         "internalType": "string",
@@ -308,7 +340,9 @@
         ];
 
         async function loadContract() {
-            return await new window.web3.eth.Contract(abi, '0xE0a4c55a56E1E300Ea9Df7A5E21ef78350683738');
+
+            return await new window.web3.eth.Contract(abi, '0x495841A9bA0ccefA51784C9a6b85b81373cDcBba');
+
         }
 
         async function load() {
@@ -330,10 +364,30 @@
             return dT;
         }
 
+        function listtable() {
+            window.contract.methods.getReserved().call(function (error, result) {
+                console.log(result);
+
+                var table = document.getElementById("Table_Reserve")
+                var body = table.createTBody();
+
+                result.forEach(element => {
+                    var row = body.insertRow(0);
+                    var cell0 = row.insertCell(0);
+                    cell0.innerHTML = element.times
+
+                    var cell1 = row.insertCell(1);
+                    cell1.innerHTML = element.rooms
+
+                    var cell2 = row.insertCell(2);
+                    cell2.innerHTML = element.owners
+                });
+            })
+        }
+
         //villa
         function btnReserve(name, eth) {
             console.log(currentAccount);
-
 
             window.contract.methods.registration(name, currentAccount, timenow())
                 .send({ from: currentAccount, value: eth }, function (error, result) {
@@ -345,20 +399,8 @@
                     console.log(event);
                     $("#result").html("Reserve Number: " + event.returnValues.hash + "<br/>Owner Address: " + event.returnValues.from
                         + "<br/>Room: " + event.returnValues.text + "<br/>Time: " + event.returnValues.time);
-
-                    var table = document.getElementById("Table_Reserve")
-                    var body = table.createTBody();
-                    var row = body.insertRow(0);
-                    var cell0 = row.insertCell(0);
-                    cell0.innerHTML = event.returnValues.time
-
-                    var cell1 = row.insertCell(1);
-                    cell1.innerHTML = event.returnValues.text
-
-                    var cell2 = row.insertCell(2);
-                    cell2.innerHTML = event.returnValues.owner
-
                 }
+                
             });
 
             window.contract.once('RegistrationError', {}, function (error, event) {
@@ -371,7 +413,6 @@
         };
 
         $("#btnCheck").click(function () {
-
             window.contract.methods.checkName($("#document2").val()).call(function (error, result) {
                 console.log(event);
                 if (!error) {
@@ -387,6 +428,7 @@
         });
 
         load();
+
     </script>
 </body>
 
