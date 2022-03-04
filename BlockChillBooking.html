@@ -47,6 +47,7 @@
                 <div class="text">Activity</div>
             </div>
 
+
             <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
             <a class="next" onclick="plusSlides(1)">&#10095;</a>
 
@@ -61,51 +62,90 @@
             <span class="dot" onclick="currentSlide(5)"></span>
         </div>
 
+        <script>
+            var slideIndex = 1;
+            showSlides(slideIndex);
+
+            function plusSlides(n) {
+                showSlides(slideIndex += n);
+            }
+
+            function currentSlide(n) {
+                showSlides(slideIndex = n);
+            }
+
+            function showSlides(n) {
+                var i;
+                var slides = document.getElementsByClassName("mySlides");
+                var dots = document.getElementsByClassName("dot");
+                if (n > slides.length) { slideIndex = 1 }
+                if (n < 1) { slideIndex = slides.length }
+                for (i = 0; i < slides.length; i++) {
+                    slides[i].style.display = "none";
+                }
+                for (i = 0; i < dots.length; i++) {
+                    dots[i].className = dots[i].className.replace(" active", "");
+                }
+                slides[slideIndex - 1].style.display = "block";
+                dots[slideIndex - 1].className += " active";
+            }
+        </script>
+
 
         <div align="center" style="margin-top: 200px;">
 
             <label class="col-lg-2 control-label">
                 Beach Bungalow Villa</label>
             <img src="image/villa1.jpg" />
-            <button id="btnRegistration1">
-                reserve ( 0.01 ETH )
+            <button id="btnReserve" onclick="btnReserve('Beach Bungalow Villa',1000000000000000)">
+                reserve ( 0.001 ETH )
             </button>
-            <h2 id="result1" style="width: 50%;background-color: rgb(201, 230, 222)"></h2>
 
             <label class="col-lg-2 control-label" ">
                     Wings Villla </label>
                 <img src=" image/villa2.jpg" />
-            <button id="btnRegistration2">
-                reserve ( 0.02 ETH )
+            <button id="btnReserve" onclick="btnReserve('Wings Villla',2000000000000000)">
+                reserve ( 0.002 ETH )
             </button>
 
             <label class="col-lg-2 control-label" ">
                     Beach Front Villla</label>
                 <img src=" image/villa3.jpg" />
-            <button id="btnRegistration3">
-                reserve ( 0.03 ETH )
+            <button id="btnReserve" onclick="btnReserve('Beach Front Villla',3000000000000000)">
+                reserve ( 0.003 ETH )
             </button>
 
             <label class="col-lg-2 control-label" ">
                     Modern Villa</label>
                 <img src=" image/villa4.jpg" />
-            <button id="btnRegistration4">
-                reserve ( 0.03 ETH )
+            <button id="btnReserve" onclick="btnReserve('Modern Villa',3000000000000000)">
+                reserve ( 0.003 ETH )
             </button>
 
             <label class="col-lg-2 control-label" ">
                     White House Villa</label>
                 <img src=" image/villa5.jpg" />
-            <button id="btnRegistration5">
-                reserve ( 0.05 ETH )
+            <button id="btnReserve" onclick="btnReserve('White House Villa',5000000000000000)">
+                reserve ( 0.005 ETH )
             </button>
 
             <label class="col-lg-2 control-label" ">
                 Super Luxurious Tent Villa</label>
             <img src=" image/tent.jpg" />
-            <button id="btnRegistration6">
+            <button id="btnReserve" onclick="btnReserve('Super Luxurious Tent Villa',10000000000000000000)">
                 reserve ( 10 ETH )
             </button>
+        </div>
+
+        <div style="margin-top: 130px;margin-left: 200px;">
+            <h1>Reserve Table</h1>
+            <table id="Table_Reserve">
+                <tr>
+                    <th style="width: 200px;">Time</th>
+                    <th style="width: 600px;">Room</th>
+                    <th style="width: 1000px;">Owner(Address)</th>
+                </tr>
+            </table>
         </div>
 
 
@@ -120,86 +160,7 @@
 
 
 
-        <label class="col-lg-2 control-label" style="margin-top: 0px;">Table</label>
-
-        <body>
-            <div id="output_div"></div>
-
-            <script>
-
-                var time = ["Time"];
-                var rooms = ["Room"];
-                var address = ["Address"];
-                var outputHTML = "";
-                outputHTML += "<table>";
-
-                for (var i = 0; i < rooms.length; i++) {
-                    outputHTML += "<tr>";
-                    outputHTML += "<td>" + time[i] + "</td>" + "<td>" + rooms[i] + "</td>" + "<td>" + address[i] + "</td>";
-                    outputHTML += "</tr>";
-                }
-                outputHTML += "<table>";
-                document.getElementById("output_div").innerHTML = outputHTML;
-
-            </script>
-        </body>
-
-
-
-
-
-
-
     </div>
-
-    <script>
-
-        function tablex() {
-
-
-            var outputHTML = "";
-            outputHTML += "<table>";
-
-            for (var i = 0; i < rooms.length; i++) {
-                outputHTML += "<tr>";
-                outputHTML += "<td>" + time[i] + "</td>" + "<td>" + rooms[i] + "</td>" + "<td>" + address[i] + "</td>";
-                outputHTML += "</tr>";
-            }
-            outputHTML += "<table>";
-            document.getElementById("output_div").innerHTML = outputHTML;
-
-        }
-
-        var slideIndex = 1;
-        showSlides(slideIndex);
-
-        function plusSlides(n) {
-            showSlides(slideIndex += n);
-        }
-
-        function currentSlide(n) {
-            showSlides(slideIndex = n);
-        }
-
-        function showSlides(n) {
-            var i;
-            var slides = document.getElementsByClassName("mySlides");
-            var dots = document.getElementsByClassName("dot");
-            if (n > slides.length) { slideIndex = 1 }
-            if (n < 1) { slideIndex = slides.length }
-            for (i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";
-            }
-            for (i = 0; i < dots.length; i++) {
-                dots[i].className = dots[i].className.replace(" active", "");
-            }
-            slides[slideIndex - 1].style.display = "block";
-            dots[slideIndex - 1].className += " active";
-
-        }
-    </script>
-
-
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js">
     </script>
@@ -260,6 +221,18 @@
                         "internalType": "bytes32",
                         "name": "hash",
                         "type": "bytes32"
+                    },
+                    {
+                        "indexed": false,
+                        "internalType": "string",
+                        "name": "time",
+                        "type": "string"
+                    },
+                    {
+                        "indexed": false,
+                        "internalType": "string",
+                        "name": "owner",
+                        "type": "string"
                     }
                 ],
                 "name": "NameAdded",
@@ -315,6 +288,16 @@
                         "internalType": "string",
                         "name": "name",
                         "type": "string"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "owner",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "time",
+                        "type": "string"
                     }
                 ],
                 "name": "registration",
@@ -325,7 +308,7 @@
         ];
 
         async function loadContract() {
-            return await new window.web3.eth.Contract(abi, '0xE8350D25665ff16bEc3F4789f0D29dcf87B500c3');
+            return await new window.web3.eth.Contract(abi, '0xE0a4c55a56E1E300Ea9Df7A5E21ef78350683738');
         }
 
         async function load() {
@@ -340,37 +323,41 @@
             console.log(status);
         }
 
-        function Addtable(room) {
-
+        function timenow() {
             var dtH = new Date().getHours();
             var dtM = new Date().getMinutes();
             var dT = dtH + ":" + dtM
-            time.push(dT)
-            rooms.push(room)
-            address.push(currentAccount)
-
-            console.log("Time            Room                               Address")
-            for(var i=1 ;i<time.length;i++){
-                console.log(time[i], "    ",  rooms[i], "   ", address[i])
-            }
-
+            return dT;
         }
 
         //villa1
-        $("#btnRegistration1").click(function () {
+        function btnReserve(name, eth) {
             console.log(currentAccount);
-            Addtable("Beach Bungalow Villa");
-            window.contract.methods.registration("villa1")
-                .send({ from: currentAccount, value: 10000000000000000 }, function (error, result) {
+
+
+            window.contract.methods.registration(name, currentAccount, timenow())
+                .send({ from: currentAccount, value: eth }, function (error, result) {
                     $("#result").html(result);
                 });
-
 
             window.contract.once('NameAdded', {}, function (error, event) {
                 if (!error) {
                     console.log(event);
-                    $("#result").html("Name: " + event.returnValues.text + "<br/>=> Hased as:"
-                        + event.returnValues.hash);
+                    $("#result").html("Reserve Number: " + event.returnValues.hash + "<br/>Owner Address: " + event.returnValues.from
+                        + "<br/>Room: " + event.returnValues.text + "<br/>Time: " + event.returnValues.time);
+
+                    var table = document.getElementById("Table_Reserve")
+                    var body = table.createTBody();
+                    var row = body.insertRow(0);
+                    var cell0 = row.insertCell(0);
+                    cell0.innerHTML = event.returnValues.time
+
+                    var cell1 = row.insertCell(1);
+                    cell1.innerHTML = event.returnValues.text
+
+                    var cell2 = row.insertCell(2);
+                    cell2.innerHTML = event.returnValues.owner
+
                 }
             });
 
@@ -381,147 +368,12 @@
                         + event.returnValues.reason);
                 }
             });
-        });
-
-        //villa2
-        $("#btnRegistration2").click(function () {
-            console.log(currentAccount);
-            Addtable("Wings Villla");
-            window.contract.methods.registration("villa2")
-                .send({ from: currentAccount, value: 20000000000000000 }, function (error, result) {
-                    $("#result").html(result);
-                });
-
-
-            window.contract.once('NameAdded', {}, function (error, event) {
-                if (!error) {
-                    console.log(event);
-                    $("#result").html("Name: " + event.returnValues.text + "<br/>=> Hased as:"
-                        + event.returnValues.hash);
-                }
-            });
-
-            window.contract.once('RegistrationError', {}, function (error, event) {
-                if (!error) {
-                    console.log(event);
-                    $("#result").html("Error: " + event.returnValues.text + "<br/>Reason:"
-                        + event.returnValues.reason);
-                }
-            });
-        });
-
-        //villa3
-        $("#btnRegistration3").click(function () {
-            console.log(currentAccount);
-            Addtable("Beach Front Villla");
-            window.contract.methods.registration("villa3")
-                .send({ from: currentAccount, value: 30000000000000000 }, function (error, result) {
-                    $("#result").html(result);
-                });
-
-
-            window.contract.once('NameAdded', {}, function (error, event) {
-                if (!error) {
-                    console.log(event);
-                    $("#result").html("Name: " + event.returnValues.text + "<br/>=> Hased as:"
-                        + event.returnValues.hash);
-                }
-            });
-
-            window.contract.once('RegistrationError', {}, function (error, event) {
-                if (!error) {
-                    console.log(event);
-                    $("#result").html("Error: " + event.returnValues.text + "<br/>Reason:"
-                        + event.returnValues.reason);
-                }
-            });
-        });
-
-        //villa4
-        $("#btnRegistration4").click(function () {
-            console.log(currentAccount);
-            Addtable("Modern Villa");
-            window.contract.methods.registration("villa4")
-                .send({ from: currentAccount, value: 30000000000000000 }, function (error, result) {
-                    $("#result").html(result);
-                });
-
-
-            window.contract.once('NameAdded', {}, function (error, event) {
-                if (!error) {
-                    console.log(event);
-                    $("#result").html("Name: " + event.returnValues.text + "<br/>=> Hased as:"
-                        + event.returnValues.hash);
-                }
-            });
-
-            window.contract.once('RegistrationError', {}, function (error, event) {
-                if (!error) {
-                    console.log(event);
-                    $("#result").html("Error: " + event.returnValues.text + "<br/>Reason:"
-                        + event.returnValues.reason);
-                }
-            });
-        });
-
-        //villa5
-        $("#btnRegistration5").click(function () {
-            console.log(currentAccount);
-            Addtable("White House Villa");
-
-            console.log(time[0]);
-            window.contract.methods.registration("villa5")
-                .send({ from: currentAccount, value: 50000000000000000 }, function (error, result) {
-                    $("#result").html(result);
-                });
-
-
-            window.contract.once('NameAdded', {}, function (error, event) {
-                if (!error) {
-                    console.log(event);
-                    $("#result").html("Name: " + event.returnValues.text + "<br/>=> Hased as:"
-                        + event.returnValues.hash);
-                }
-            });
-
-            window.contract.once('RegistrationError', {}, function (error, event) {
-                if (!error) {
-                    console.log(event);
-                    $("#result").html("Error: " + event.returnValues.text + "<br/>Reason:"
-                        + event.returnValues.reason);
-                }
-            });
-        });
-
-        //villa6
-        $("#btnRegistration6").click(function () {
-            console.log(currentAccount);
-            Addtable("Super Luxurious Tent Villa");
-            window.contract.methods.registration("villa5")
-                .send({ from: currentAccount, value: 10000000000000000000 }, function (error, result) {
-                    $("#result").html(result);
-                });
-
-
-            window.contract.once('NameAdded', {}, function (error, event) {
-                if (!error) {
-                    console.log(event);
-                    $("#result").html("Name: " + event.returnValues.text + "<br/>=> Hased as:"
-                        + event.returnValues.hash);
-                }
-            });
-
-            window.contract.once('RegistrationError', {}, function (error, event) {
-                if (!error) {
-                    console.log(event);
-                    $("#result").html("Error: " + event.returnValues.text + "<br/>Reason:"
-                        + event.returnValues.reason);
-                }
-            });
-        });
+        };
 
         $("#btnCheck").click(function () {
+
             window.contract.methods.checkName($("#document2").val()).call(function (error, result) {
+                console.log(event);
                 if (!error) {
                     if (result.toString() == "true") {
                         $("#result").html("Reserve");
@@ -533,7 +385,6 @@
                     console.error(error);
             });
         });
-
 
         load();
     </script>

@@ -1,15 +1,18 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.1;
 
-contract ProofOfStudent {  
+contract ProofOfReserve {  
 
-  mapping (bytes32 => bool) private listStudent;
-
+  mapping (bytes32 => bool) private listReserve;
+  
   //---events---
   event NameAdded(
     address from,   
     string text,
-    bytes32 hash
+    bytes32 hash,
+    string time,
+    string owner
+
   );
   
   event RegistrationError(
@@ -20,14 +23,14 @@ contract ProofOfStudent {
 
   // store the proof for a student in the contract state
   function recordProof(bytes32 proof) private {
-    listStudent[proof] = true;
+    listReserve[proof] = true;
   }
   
   // record a student name
-  function registration(string memory name) public payable {
+  function registration(string memory name ,string memory owner ,string memory time) public payable {
     
     //---check if string was previously stored---
-    if (listStudent[hashing(name)]) {
+    if (listReserve[hashing(name)]) {
         //---fire the event---
         emit RegistrationError(msg.sender, name, "This room has been reserved.");
         //---refund back to the sender---
@@ -36,47 +39,45 @@ contract ProofOfStudent {
         return;
     }
 
-
-
-    if(keccak256(bytes(name)) == keccak256(bytes("villa1"))) {
-        if (msg.value != 0.01 ether) {
+    if(keccak256(bytes(name)) == keccak256(bytes("Beach Bungalow Villa"))) {
+        if (msg.value != 0.001 ether) {
             //---fire the event---
-            emit RegistrationError(msg.sender, name, "Incorrect amout of Ether. You should pay 0.01 ether");
+            emit RegistrationError(msg.sender, name, "Incorrect amout of Ether. You should pay 0.001 ether");
             //---refund back to the sender---
             payable(msg.sender).transfer(msg.value);
             //---exit the function---
             return;
         } 
 
-    }else if(keccak256(bytes(name)) == keccak256(bytes("villa2"))){
-        if (msg.value != 0.02 ether) {
+    }else if(keccak256(bytes(name)) == keccak256(bytes("Wings Villla"))){
+        if (msg.value != 0.002 ether) {
             emit RegistrationError(msg.sender, name, "Incorrect amout of Ether. You should pay 0.02 ether");
             payable(msg.sender).transfer(msg.value);
             return;
         }     
 
-    }else if(keccak256(bytes(name)) == keccak256(bytes("villa3"))){
-        if (msg.value != 0.03 ether) {
+    }else if(keccak256(bytes(name)) == keccak256(bytes("Beach Front Villla"))){
+        if (msg.value != 0.003 ether) {
             emit RegistrationError(msg.sender, name, "Incorrect amout of Ether. You should pay 0.03 ether");
             payable(msg.sender).transfer(msg.value);
             return;
         }     
 
-    }else if(keccak256(bytes(name)) == keccak256(bytes("villa4"))){
-        if (msg.value != 0.03 ether) {
+    }else if(keccak256(bytes(name)) == keccak256(bytes("Modern Villa"))){
+        if (msg.value != 0.003 ether) {
             emit RegistrationError(msg.sender, name, "Incorrect amout of Ether. You should pay 0.03 ether");
             payable(msg.sender).transfer(msg.value);
             return;
         }     
 
-    }else if(keccak256(bytes(name)) == keccak256(bytes("villa5"))){
-        if (msg.value != 0.05 ether) {
+    }else if(keccak256(bytes(name)) == keccak256(bytes("White House Villa"))){
+        if (msg.value != 0.005 ether) {
             emit RegistrationError(msg.sender, name, "Incorrect amout of Ether. You should pay 0.05 ether");
             payable(msg.sender).transfer(msg.value);
             return;
         }
 
-    }else if(keccak256(bytes(name)) == keccak256(bytes("villa6"))){
+    }else if(keccak256(bytes(name)) == keccak256(bytes("Super Luxurious Tent Villa"))){
         if (msg.value != 10 ether) {
             emit RegistrationError(msg.sender, name, "Incorrect amout of Ether. You should pay 10 ether");
             payable(msg.sender).transfer(msg.value);
@@ -91,10 +92,12 @@ contract ProofOfStudent {
     //---check if msg.value != 0.001 ether---
 
     recordProof(hashing(name));
-    
+
+
     //---fire the event---
-    emit NameAdded(msg.sender, name, 
-        hashing(name));
+
+    emit NameAdded(msg.sender, name, hashing(name), time, owner);
+    payable(msg.sender).transfer(msg.value);
     
   }
   
@@ -107,8 +110,8 @@ contract ProofOfStudent {
   // check name of student in this class
   function checkName(string memory name) public 
   view returns (bool) {
-    return listStudent[hashing(name)];
+    return listReserve[hashing(name)];
   }
 
-  
+
 }
