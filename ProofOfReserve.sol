@@ -105,7 +105,7 @@ contract ProofOfReserve {
     reserved.push(Reserved(time,name,owner));
 
     emit NameAdded(msg.sender, name, hashing(name), time, owner);
-    payable(msg.sender).transfer(msg.value);
+    //payable(msg.sender).transfer(msg.value);
     
   }
   
