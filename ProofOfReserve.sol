@@ -59,28 +59,28 @@ contract ProofOfReserve {
 
     }else if(keccak256(bytes(name)) == keccak256(bytes("Wings Villla"))){
         if (msg.value != 0.002 ether) {
-            emit RegistrationError(msg.sender, name, "Incorrect amout of Ether. You should pay 0.02 ether");
+            emit RegistrationError(msg.sender, name, "Incorrect amout of Ether. You should pay 0.002 ether");
             payable(msg.sender).transfer(msg.value);
             return;
         }     
 
     }else if(keccak256(bytes(name)) == keccak256(bytes("Beach Front Villla"))){
         if (msg.value != 0.003 ether) {
-            emit RegistrationError(msg.sender, name, "Incorrect amout of Ether. You should pay 0.03 ether");
+            emit RegistrationError(msg.sender, name, "Incorrect amout of Ether. You should pay 0.003 ether");
             payable(msg.sender).transfer(msg.value);
             return;
         }     
 
     }else if(keccak256(bytes(name)) == keccak256(bytes("Modern Villa"))){
         if (msg.value != 0.003 ether) {
-            emit RegistrationError(msg.sender, name, "Incorrect amout of Ether. You should pay 0.03 ether");
+            emit RegistrationError(msg.sender, name, "Incorrect amout of Ether. You should pay 0.003 ether");
             payable(msg.sender).transfer(msg.value);
             return;
         }     
 
     }else if(keccak256(bytes(name)) == keccak256(bytes("White House Villa"))){
         if (msg.value != 0.005 ether) {
-            emit RegistrationError(msg.sender, name, "Incorrect amout of Ether. You should pay 0.05 ether");
+            emit RegistrationError(msg.sender, name, "Incorrect amout of Ether. You should pay 0.005 ether");
             payable(msg.sender).transfer(msg.value);
             return;
         }
