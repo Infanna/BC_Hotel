@@ -38,14 +38,14 @@ contract ProofOfReserve {
 
 
     //---check if string was previously stored---
-    if (listReserve[hashing(name)]) {
-        //---fire the event---
-        emit RegistrationError(msg.sender, name, "This room has been reserved.");
-        //---refund back to the sender---
-        payable(msg.sender).transfer(msg.value);
-        //---exit the function---
-        return;
-    }
+    // if (listReserve[hashing(name)]) {
+    //     //---fire the event---
+    //     emit RegistrationError(msg.sender, name, "This room has been reserved.");
+    //     //---refund back to the sender---
+    //     payable(msg.sender).transfer(msg.value);
+    //     //---exit the function---
+    //     return;
+    // }
 
     if(keccak256(bytes(name)) == keccak256(bytes("Beach Bungalow Villa"))) {
         if (msg.value != 0.001 ether) {
