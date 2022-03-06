@@ -9,7 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
 </head>
 
-<body>
+<body onload="listtable()">
     <div class="container">
         <h1>BCB</h1>
         <h2>BlockChill Booking</h2>
@@ -89,10 +89,11 @@
                 slides[slideIndex - 1].style.display = "block";
                 dots[slideIndex - 1].className += " active";
             }
+
         </script>
 
 
-        <div align="center" style="margin-top: 200px;">
+        <div align="center" style="margin-top: 200px;" >
 
             <label class="col-lg-2 control-label">
                 Beach Bungalow Villa</label>
@@ -137,7 +138,7 @@
             </button>
         </div>
 
-        <div style="margin-top: 130px;margin-left: 200px;">
+        <div style="margin-top: 130px;margin-left: 200px;" >
             <h1>Reserve Table</h1>
             <table id="Table_Reserve">
                 <tr>
@@ -147,7 +148,6 @@
                 </tr>
             </table>
         </div>
-
 
 
         <label class="col-lg-2 control-label">
@@ -186,16 +186,18 @@
         // Note that this event is emitted on page load.
         // If the array of accounts is non-empty, you're already
         // connected.
+    
         window.ethereum.on('accountsChanged', handleAccountsChanged);
+        
 
         // For now, 'eth_accounts' will continue to always return an array
         function handleAccountsChanged(accounts) {
+            
             if (accounts.length === 0) {
                 // MetaMask is locked or the user has not connected any accounts
                 console.log('Please connect to MetaMask.');
             } else if (accounts[0] !== currentAccount) {
                 currentAccount = accounts[0];
-                listtable();
                 // Do any other work!
             }
         }
